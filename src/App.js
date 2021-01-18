@@ -1,10 +1,10 @@
 import React from "react";
-import DishesList from "./components/DishesList";
-import dishes from "./data.json";
+import DishesList from "./DishesList";
+
 function App() {
   return (
     <div className="app">
-      <DishesList dishes={dishes} />
+      <DishesList />
     </div>
   );
 }

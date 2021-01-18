@@ -17,26 +17,25 @@ body
     outline: none
     color: #ffffff
 
-.users
-  list-style: none
-  padding: 0
-  margin: 0
-  margin-top: 15px
-  &__item
-    margin: 10px 0
-    padding-bottom: 15px
-    border-bottom: 1px solid rgba(255,255,255,0.1)   
-    &-email
-      font-size: 12px
-      opacity: 0.4  
+.dishes
+  display: flex
+  justify-content: space-between
+  @media (max-width: 996px)
+    flex-wrap: wrap
 
-button
-  padding: 10px
-  outline: none
-  border: 0
+
+
+.form-control  
+  width: 300px
+
+.card
+  width: 300px
+  color: #ffffff
+  background-color: #2d364b
+  margin: 10px 0
   border-radius: 10px
-  width: 100%
-  color: #fff
-  background-color: #fe8468
-  cursor: pointer
+  &-text
+    color: #E1E4E2
 
+img
+  max-width: 100%
