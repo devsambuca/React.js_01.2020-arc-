@@ -14,13 +14,16 @@ function App() {
       text: 'Сохранить задачи в массив стейта',
     },
   ]);
+  const [activeColor, setActiveColor] = React.useState('grey');
   const [inputValue, setInputValue] = React.useState('');
+  const [completed, setCompleted] = React.useState('');
   const addTask = (e) => {
-    if (e.key === 'Enter') {
-      if (tasks.length) {
-        setTasks([...tasks, { id: tasks[tasks.length - 1].id + 1, text: inputValue }]);
-      } else {
-        setTasks([...tasks, { id: 1, text: inputValue }]);
+    if (e.key === 'Enter' && tasks.length) {
+      if (e.target.value.trim()) {
+        setTasks([
+          ...tasks,
+          { id: tasks.length + 1, text: inputValue, color: activeColor, complete: completed },
+        ]);
       }
       setInputValue('');
     }
