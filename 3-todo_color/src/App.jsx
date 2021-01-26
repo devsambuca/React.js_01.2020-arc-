@@ -8,23 +8,28 @@ function App() {
     {
       id: 1,
       text: 'Попробовать создать ToDo',
+      color: 'grey',
     },
     {
       id: 2,
       text: 'Сохранить задачи в массив стейта',
+      color: 'blue',
     },
   ]);
   const [activeColor, setActiveColor] = React.useState('grey');
   const [inputValue, setInputValue] = React.useState('');
-  const [completed, setCompleted] = React.useState('');
+
+  const getLastTaskId = () => {
+    return tasks.length === 0 ? tasks.length : tasks[tasks.length - 1].id;
+  };
+
   const addTask = (e) => {
-    const lastId = tasks[tasks.length - 1].id + 1;
-    if (e.key === 'Enter' && tasks.length) {
+    if (e.key === 'Enter') {
       if (e.target.value.trim()) {
         if (activeColor || 'grey')
           setTasks([
             ...tasks,
-            { id: lastId, text: inputValue, color: activeColor, complete: false },
+            { id: getLastTaskId() + 1, text: inputValue, color: activeColor, complete: false },
           ]);
       }
       setInputValue('');
@@ -36,6 +41,17 @@ function App() {
       const newTasks = tasks.filter((t) => t.id !== taskId);
       setTasks(newTasks);
     }
+  };
+
+  const completeTask = (taskId) => {
+    setTasks(
+      tasks.map((task) => {
+        if (task.id === taskId) {
+          task.complete = !task.complete;
+        }
+        return task;
+      }),
+    );
   };
 
   const addColor = (color) => {
@@ -61,8 +77,10 @@ function App() {
         <h2>Список задач</h2>
         {tasks.map((obj) => (
           <TodoItem
+            item={obj}
             key={obj.id}
             text={obj.text}
+            onComplete={completeTask}
             onUpdate={editTask}
             onDelete={removeTask}
             id={obj.id}
