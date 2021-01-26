@@ -18,11 +18,12 @@ function App() {
   const [inputValue, setInputValue] = React.useState('');
   const [completed, setCompleted] = React.useState('');
   const addTask = (e) => {
+    const lastId = tasks[tasks.length - 1].id + 1;
     if (e.key === 'Enter' && tasks.length) {
       if (e.target.value.trim()) {
         setTasks([
           ...tasks,
-          { id: tasks.length + 1, text: inputValue, color: activeColor, complete: false },
+          { id: lastId + 1, text: inputValue, color: activeColor, complete: false },
         ]);
       }
       setInputValue('');
@@ -35,8 +36,11 @@ function App() {
       setTasks(newTasks);
     }
   };
-
-  const handleClickColor = (e) => console.log(e, 'Click');
+  console.log(tasks);
+  const handleClickColor = (e) => {
+    console.log(e.target.classList);
+    console.log(activeColor);
+  };
 
   const editTask = (id, value) => {
     const newValue = prompt('You are want to change the task?', value);
