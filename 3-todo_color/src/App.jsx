@@ -22,30 +22,33 @@ function App() {
       if (e.target.value.trim()) {
         setTasks([
           ...tasks,
-          { id: tasks.length + 1, text: inputValue, color: activeColor, complete: completed },
+          { id: tasks.length + 1, text: inputValue, color: activeColor, complete: false },
         ]);
       }
       setInputValue('');
     }
   };
-  const removeTask = (task) => {
+  const removeTask = (taskId) => {
     const confirmRemove = window.confirm('Are you sure?');
     if (confirmRemove) {
-      const newTasks = tasks.filter((t) => t.id !== task);
+      const newTasks = tasks.filter((t) => t.id !== taskId);
       setTasks(newTasks);
     }
   };
 
-  const editTask = (id) => {
-    const promptValue = prompt('You are want to change the task?');
-    if (promptValue) {
-      const updateTask = tasks.map((task, index) => {
-        if (id === index + 1) {
-          task.text = promptValue;
-        }
-        return task;
-      });
-      setTasks(updateTask);
+  const handleClickColor = (e) => console.log(e, 'Click');
+
+  const editTask = (id, value) => {
+    const newValue = prompt('You are want to change the task?', value);
+    if (newValue) {
+      setTasks(
+        tasks.map((task) => {
+          if (task.id === id) {
+            task.text = newValue;
+          }
+          return task;
+        }),
+      );
     }
   };
   return (
@@ -71,7 +74,7 @@ function App() {
           />
           <ul>
             {colors.map((color) => (
-              <li key={color.id} className={`todo-color ${color}`}></li>
+              <li key={color} onClick={handleClickColor} className={`todo-color ${color}`}></li>
             ))}
           </ul>
         </div>
