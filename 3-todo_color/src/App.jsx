@@ -21,7 +21,11 @@ function App() {
     const lastId = tasks[tasks.length - 1].id + 1;
     if (e.key === 'Enter' && tasks.length) {
       if (e.target.value.trim()) {
-        setTasks([...tasks, { id: lastId, text: inputValue, color: activeColor, complete: false }]);
+        if (activeColor || 'grey')
+          setTasks([
+            ...tasks,
+            { id: lastId, text: inputValue, color: activeColor, complete: false },
+          ]);
       }
       setInputValue('');
     }
@@ -33,10 +37,9 @@ function App() {
       setTasks(newTasks);
     }
   };
-  console.log(tasks);
-  const handleClickColor = (e) => {
-    console.log(e.target.classList);
-    console.log(activeColor);
+
+  const addColor = (color) => {
+    setActiveColor(color);
   };
 
   const editTask = (id, value) => {
@@ -63,6 +66,7 @@ function App() {
             onUpdate={editTask}
             onDelete={removeTask}
             id={obj.id}
+            color={obj.color}
           />
         ))}
         <div className="todo-input">
@@ -75,7 +79,11 @@ function App() {
           />
           <ul>
             {colors.map((color) => (
-              <li key={color} onClick={handleClickColor} className={`todo-color ${color}`}></li>
+              <li
+                key={color}
+                style={{ backgroundColor: `var(--${color})` }}
+                onClick={() => addColor(color)}
+                className={`todo-color ${activeColor === color ? 'active' : ' '}`}></li>
             ))}
           </ul>
         </div>
