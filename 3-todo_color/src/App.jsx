@@ -21,10 +21,7 @@ function App() {
     const lastId = tasks[tasks.length - 1].id + 1;
     if (e.key === 'Enter' && tasks.length) {
       if (e.target.value.trim()) {
-        setTasks([
-          ...tasks,
-          { id: lastId + 1, text: inputValue, color: activeColor, complete: false },
-        ]);
+        setTasks([...tasks, { id: lastId, text: inputValue, color: activeColor, complete: false }]);
       }
       setInputValue('');
     }
