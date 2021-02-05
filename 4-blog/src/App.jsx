@@ -4,6 +4,7 @@ import Navigation from './components/Navigation';
 import axios from 'axios';
 import AboutPage from './pages/AboutPage';
 import Container from 'react-bootstrap/Container';
+import FullPostPage from './pages/FullPostPage';
 
 function App() {
   const [cards, setCards] = React.useState([]);
@@ -17,17 +18,24 @@ function App() {
     fetchPosts();
   }, []);
 
-  const getPath = () => {
-    const path = window.location.pathname;
-    return path;
-  };
+  const path = window.location.pathname;
 
+  const myPar = (path) => {
+    const postId = path.split('/')[2];
+    switch (path) {
+      case '/about':
+        return <AboutPage />;
+      case `/posts/${postId}`:
+        return <FullPostPage postId={postId} />;
+      default:
+        return <HomePage cards={cards} />;
+    }
+  };
   return (
     <div className="App">
-      <Container>
-        <Navigation />
-        {getPath() === '/about' ? <AboutPage /> : <HomePage cards={cards} getPath={getPath} />}
-      </Container>
+      <br></br>
+      <br></br>
+      <Container>{myPar(path)}</Container>
     </div>
   );
 }

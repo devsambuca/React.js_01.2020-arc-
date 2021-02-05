@@ -2,10 +2,10 @@ import React from 'react';
 
 const Card = (props) => {
   return (
-    <div className="card">
+    <div className="mt-4 card">
       <img src={props.image} alt="" className="card-img-top" />
       <div className="card-body">
-        <div className="card-title">
+        <div className="card-title h5">
           <a href={`/posts/${props.id}`}> {props.title}</a>
         </div>
         <p className="card-text">{props.text}</p>

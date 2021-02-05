@@ -1,12 +1,12 @@
 import React from 'react';
 
-const Navigation = (prop) => {
+const Navigation = () => {
   const [inputValue, setInputValue] = React.useState('');
 
   return (
     <div>
       <nav className="navbar navbar-expand navbar-dark bg-dark">
-        <a href="#home" className="navbar-brand">
+        <a href="home" className="navbar-brand">
           Мой блог
         </a>
         <div className="mr-auto navbar-nav">
