@@ -4,37 +4,33 @@ import axios from 'axios';
 import AboutPage from './pages/AboutPage';
 import Container from 'react-bootstrap/Container';
 import FullPostPage from './pages/FullPostPage';
+import { Route } from 'react-router-dom';
 
 function App() {
-  const [cards, setCards] = React.useState([]);
+  const [posts, setPosts] = React.useState([]);
 
   const fetchPosts = async () => {
     const { data } = await axios.get(`https://5c3755177820ff0014d92711.mockapi.io/posts`);
-    setCards(data);
+    setPosts(data);
   };
 
   React.useEffect(() => {
     fetchPosts();
   }, []);
 
-  const path = window.location.pathname;
-
-  const getPageByPathname = (path) => {
-    const postId = path.split('/')[2];
-    switch (path) {
-      case '/about':
-        return <AboutPage />;
-      case `/posts/${postId}`:
-        return <FullPostPage postId={postId} />;
-      default:
-        return <HomePage cards={cards} />;
-    }
-  };
   return (
     <div className="App">
       <br />
       <br />
-      <Container>{getPageByPathname(path)}</Container>
+      <Container>
+        <Route exact path="/">
+          <HomePage posts={posts} />
+        </Route>
+        <Route path="/about">
+          <AboutPage />
+        </Route>
+        <Route path="/posts/:id" component={FullPostPage}></Route>
+      </Container>
     </div>
   );
 }
