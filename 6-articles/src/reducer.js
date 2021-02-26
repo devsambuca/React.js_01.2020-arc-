@@ -9,7 +9,6 @@ export const initialState = {
 };
 export function reducer(state, action) {
   console.log(action);
-  console.log(state.articles.length);
 
   switch (action.type) {
     case 'GET_ARTICLES':

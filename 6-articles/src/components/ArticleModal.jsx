@@ -1,9 +1,12 @@
 import React from 'react';
+import axios from 'axios';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
+import { StateContext } from '../App';
 
-const ArticleModal = ({ show, onClose, onAddArticle }) => {
+const ArticleModal = ({ show, onClose }) => {
+  const [state, dispatch] = React.useContext(StateContext);
   const [data, setData] = React.useState({
     title: '',
     text: '',
@@ -17,8 +20,17 @@ const ArticleModal = ({ show, onClose, onAddArticle }) => {
     });
   };
 
+  const onAddArticle = async () => {
+    await axios.post(`https://5c3755177820ff0014d92711.mockapi.io/articles`);
+    dispatch({
+      type: 'ADD_ARTICLE',
+      payload: data,
+    });
+  };
+
   const onClickAdd = () => {
     if (onAddArticle) {
+      console.log(data);
       onAddArticle(data);
     }
     setData({

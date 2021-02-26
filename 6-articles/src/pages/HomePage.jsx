@@ -14,14 +14,6 @@ const HomePage = () => {
     dispatch({ type: 'GET_ARTICLES', payload: data });
   };
 
-  const addArticle = async () => {
-    const { data } = await axios.post(`https://5c3755177820ff0014d92711.mockapi.io/articles`);
-    dispatch({
-      type: 'ADD_ARTICLE',
-      payload: data,
-    });
-  };
-
   React.useEffect(() => {
     fetchArticles();
   }, []);
@@ -37,18 +29,12 @@ const HomePage = () => {
       type: 'OPEN_MODAL',
     });
   };
-  const onAddArticle = (data) => {
-    dispatch({
-      type: 'ADD_ARTICLE',
-      payload: data,
-    });
-  };
 
   return (
     <div>
       <Navigation />
       <Button onClick={handleShow}>Add article</Button>
-      <ArticleModal show={state.visibleModal} onClose={handleClose} onAddArticle={onAddArticle} />
+      <ArticleModal show={state.visibleModal} onClose={handleClose} />
       <div className="card-columns">
         {state.articles.map((article) => (
           <Article
